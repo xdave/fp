@@ -6,3 +6,5 @@ Generic Concurrent Map and Reduce functions in Go
 See the examples in `fp_test.go`
 
 Also see the [GoDoc Documentation](https://godoc.org/github.com/xdave/fp).
+
+TODO: Concurrent Reduce
