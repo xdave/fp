@@ -15,7 +15,7 @@ func Map(collection interface{}, operation interface{}) interface{} {
 	case reflect.Slice:
 		results := reflect.MakeSlice(typ, cl.Len(), cl.Cap())
 		var wg sync.WaitGroup
-		for i := 0; i < cl.Len(); i++ {
+		for i := range make([]struct{}, cl.Len()) {
 			wg.Add(1)
 			go func(i int, results reflect.Value) {
 				item := cl.Index(i)
@@ -31,7 +31,7 @@ func Map(collection interface{}, operation interface{}) interface{} {
 		results := reflect.MakeMap(typ)
 		keys := cl.MapKeys()
 		var wg sync.WaitGroup
-		for i := 0; i < len(keys); i++ {
+		for i := range make([]struct{}, len(keys)) {
 			wg.Add(1)
 			go func(i int, results reflect.Value) {
 				index := keys[i]
@@ -57,7 +57,7 @@ func Reduce(collection interface{}, operation interface{}) interface{} {
 	var r reflect.Value
 	switch cl.Kind() {
 	case reflect.Slice:
-		for i := 0; i < cl.Len(); i++ {
+		for i := range make([]struct{}, cl.Len()) {
 			item := cl.Index(i)
 			if i == 0 {
 				r = item
@@ -68,7 +68,7 @@ func Reduce(collection interface{}, operation interface{}) interface{} {
 		}
 	case reflect.Map:
 		keys := cl.MapKeys()
-		for i := 0; i < len(keys); i++ {
+		for i := range make([]struct{}, len(keys)) {
 			index := keys[i]
 			item := cl.MapIndex(index)
 			if i == 0 {
