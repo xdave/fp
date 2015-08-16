@@ -3,11 +3,34 @@ package fp_test
 import (
 	"fmt"
 	"strings"
+	"testing"
 )
 
 import (
 	"github.com/xdave/fp"
 )
+
+func TestMapWrongTypePanics(t *testing.T) {
+	defer func() {
+		r := recover()
+		if r == nil {
+			t.Errorf("Did not panic as expected")
+		}
+	}()
+	input := "someOddType"
+	fp.Map(input, func() {})
+}
+
+func TestReduceWrongTypePanics(t *testing.T) {
+	defer func() {
+		r := recover()
+		if r == nil {
+			t.Errorf("Did not panic as expected")
+		}
+	}()
+	input := "someOddType"
+	fp.Reduce(input, func() {})
+}
 
 func ExampleMapSliceString() {
 	input := []string{"Hello", "World"}
